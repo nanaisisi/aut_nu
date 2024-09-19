@@ -1,7 +1,3 @@
-scoop update --all
-
-rustup update
-
 # cargo install-update -l コマンドを実行し、出力を取得
 let output = (cargo install-update -l | get stdout)
 
