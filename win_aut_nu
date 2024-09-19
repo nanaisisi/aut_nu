@@ -1,0 +1,8 @@
+let scoop_upd_al_com = "scoop update --all"
+let rustup_upd_com = "rustup update"
+let cargo_ins_upd_check_com = "cargo install-update -l"
+let cargo_ins_upd_com = "cargo binstall --force cargo_update"
+let cargo_bin_upd_com = "cargo binstall --force cargo-binstall"
+$scoop_upd_al_com | run
+$rustup_upd_com | run
+$cargo_ins_upd_check_com | run
