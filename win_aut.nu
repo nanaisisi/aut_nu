@@ -3,7 +3,7 @@ scoop update --all
 rustup update
 
 # cargo install-update -l コマンドを実行し、出力を取得
-let output = (cargo install-update -l | get stdout)
+let output = (cargo install-update -l)
 
 # 出力を行ごとに分割
 let lines = $output | lines
@@ -17,7 +17,7 @@ for line in $lines {
         } else {
             # "No" が含まれていない場合は更新コマンドを実行
             echo "Updating cargo-binstall"
-            run-external "cargo" "binstall" "--force" "cargo-binstall"
+            cargo binstall --force cargo-binstall
         }
     } else if ($line | str contains "cargo-update") {
         if ($line | str contains "No") {
@@ -27,7 +27,7 @@ for line in $lines {
         } else {
             # "No" が含まれていない場合は更新コマンドを実行
             echo "Updating cargo-update"
-            run-external "cargo" "binstall" "--force" "cargo_update"
+            cargo binstall --force cargo_update
         }
     } else if ($line | str contains "erg") {
         if ($line | str contains "No") {
@@ -36,11 +36,11 @@ for line in $lines {
         } else {
             # "No" が含まれていない場合は更新コマンドを実行
             echo "Updating erg"
-            run-external "cargo" "install" "erg" "-f" "--features" "japanese full"
+            cargo install erg -f --features "japanese full"
         }
     } else if ($line | str contains "Yes") {
         echo "cargo apps updating"
-        run-external "cargo" "install-update" "-a"
+        cargo install-update -a
     }
 }
-exit
+exit(0)

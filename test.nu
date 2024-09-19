@@ -39,3 +39,4 @@ for line in $lines {
         cargo install-update -a
     }
 }
+exit(0)
