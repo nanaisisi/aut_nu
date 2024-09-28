@@ -1,3 +1,2 @@
-def main [x: int] {
-  $x + 10
-}
+echo [world]]
+  10 + 10
