@@ -1,5 +1,3 @@
-rustup update
-
 gh extension upgrade gh-copilot
 
 rye self update --force
@@ -46,6 +44,5 @@ for line in $lines {
     if ($line | str contains "Yes") {
         print "cargo apps updating"
         cargo install-update -a
-        brake
     }
 }
