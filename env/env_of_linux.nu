@@ -1,4 +1,11 @@
 
+#私はwslで、winのクリップボードにパスワード固定しているんですよね。履歴あり非自動共有あり。
+sudo apt update
+sudo apt dist-upgrade -y
+sudo do-release-upgrade
+
+sudo apt install aptitude
+
 #コンパイルは時間がかかるのでGitのReleaseなどからバイナリが高速で手に入る用に。
 cargo install cargo-binstall
 #その後のアプリ管理
@@ -21,6 +28,9 @@ snap install --classic helix
 
 flatpak install flathub com.helix_editor.Helix
 flatpak run com.helix_editor.Helix
+
+#Gordian Knot
+cargo binstall helix
 
 #$nu.env-path
 
