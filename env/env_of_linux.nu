@@ -9,7 +9,7 @@ sudo apt install aptitude
 #コンパイルは時間がかかるのでGitのReleaseなどからバイナリが高速で手に入る用に。
 cargo install cargo-binstall
 #その後のアプリ管理
-cargo install cargo-update
+cargo binstall cargo-update
 #list表示
 #cargo install-update -l
 #実行、自動アップデートシステムはこの辺の管理順序をフローにしてる。
