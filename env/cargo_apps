@@ -39,4 +39,7 @@ zenith
 #kail_but_old
 onefetch
 
+#other_out
+fselect
+
 cargo install erg -f --features "japanese full"
