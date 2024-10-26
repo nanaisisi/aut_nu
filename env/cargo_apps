@@ -29,7 +29,7 @@ cargo-binutils
 du-dust
 dua-cli
 fselect
-git-interactive-rebase-editor
+git-interactive-rebase-tool
 gitui
 kanpyo
 lsd
