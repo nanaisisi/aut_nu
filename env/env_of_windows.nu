@@ -1,11 +1,11 @@
 #パッケージマネージャを使えば、簡潔なインストール、アップデート（更新）が可能になる。
 #wingetは、ストアアプリからwindowsにアプリインストーラーとしていれることができる。
 #ただしwingetは良くも悪くも既存のものに干渉するので動かしてる時の動作が不安定なので辛い。
-#
+#とりあえずunigetというGUIおすすめ
 
 #https://scoop.sh/
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-Invoke-RestMethod -Uri https:#get.scoop.sh | Invoke-Expression
+Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 
 #並列ダウンロード機能を導入してで
 scoop install aria2
@@ -35,7 +35,6 @@ cargo install cargo-update
 #実行、自動アップデートシステムはこの辺の管理順序をフローにしてる。
 #cargo install-update -a
 
-#nana
 #nushellに
 #hx $nu.env-path
 
