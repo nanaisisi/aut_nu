@@ -27,7 +27,7 @@ for line in $lines {
         } else {
             # "No" が含まれていない場合は更新コマンドを実行
             print "Updating cargo-update"
-            cargo binstall --force cargoupdate
+            cargo binstall --force cargo-update
         }
     } else if ($line | str contains "erg") {
         if ($line | str contains "No") {
