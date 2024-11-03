@@ -1,5 +1,6 @@
 gh extension upgrade gh-copilot
 
+uv self update --all
 rye self update --force
 
 # cargo install-update -l コマンドを実行し、出力を取得
