@@ -16,8 +16,11 @@ scoop install aria2
 scoop install git
 scoop bucket add extras
 scoop install googlechrome
-#世話はなさそうなので、chromeも新しくいれるならこれでいいかも。
+#世話はなさそうなので、chromeも新しくいれるならこれでいいかも。でもセルフアップデートするやつ的には微妙かも。
 #scoop_appsを要確認
+
+フォントは白源（hackgen）がインターネットを見ると比較的おすすめされ気味だったので、採用。
+githubのReleaseからNF版をダウンロードして解凍、管理者権限でインストールしないと使いづらいので、旧メニューを表示してインストール。vscodeと、Windowsターミナルの標準プロファイルで設定する（vscodeの詳細設定後日todo）
 
 #rustup導入
 #ストアアプリでvisual studio 2022をインストールしてC++のワークロードを選択しておく(自動生成)、インストールする。
