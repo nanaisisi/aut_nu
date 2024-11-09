@@ -1,9 +1,9 @@
-
 #私はwslで、winのクリップボードにパスワード固定しているんですよね。履歴あり非自動共有あり。
 sudo apt update
 sudo apt dist-upgrade -y
 sudo do-release-upgrade
 
+#どうしても困った時用。あんまり使わないほうがいい。
 sudo apt install aptitude
 
 #コンパイルは時間がかかるのでGitのReleaseなどからバイナリが高速で手に入る用に。
@@ -32,6 +32,13 @@ flatpak run com.helix_editor.Helix
 #Gordian Knot
 cargo binstall helix
 
+
+#hx /etc/shells
+#add nu path
+#shell setting nu
+chsh
+
+
 #$nu.env-path
 
 mkdir ~/.cache/starship
@@ -49,3 +56,8 @@ eval "$(starship init bash)"
   echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ stable main" | sudo tee /etc/apt/sources.list.d/azlux.list
     sudo wget -O /usr/share/keyrings/azlux-archive-keyring.gpg  https://azlux.fr/repo.gpg
 "deb http://packages.azlux.fr/debian/ testing main"
+
+
+#色々入れとく
+#tauriとか参考にはなる
+gh extension install github/gh-copilot
