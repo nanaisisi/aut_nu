@@ -12,6 +12,16 @@ $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.cargo/bin/')
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 
+# To load from a custom file you can use:
+# source ($nu.default-config-dir | path join 'custom.nu')
+mkdir ~/.cache/starship
+starship init nu | save -f ~/.cache/starship/init.nu
+$env.PATH = ($env.PATH | split row (char esep) | prepend '/home/orag/always/tools/ada/alire/alr-2.0.1-bin-x86_64-linux/bin')
+$env.PATH = ($env.PATH | split row (char esep) | prepend '/home/orag/snap/bin')
+$env.PATH = ($env.PATH | split row (char esep) | prepend '/home/orag/.rye/shims')
+$env.PATH = ($env.PATH | split row (char esep) | prepend '/home/orag/.cargo/bin')
+
+
 .bashrc
 export PATH=$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts
 export PATH=$PATH:$HOME/always/tools/ada/alire/alr-2.0.1-bin-x86_64-linux/bin
