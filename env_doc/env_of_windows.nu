@@ -7,6 +7,10 @@
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 
+#uv
+#https://docs.astral.sh/uv/getting-started/installation/#__tabbed_1_2
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+
 #並列ダウンロード機能を導入してで
 scoop install aria2
 
@@ -15,8 +19,7 @@ scoop install aria2
 #scoop search git
 scoop install git
 scoop bucket add extras
-scoop install googlechrome
-#世話はなさそうなので、chromeも新しくいれるならこれでいいかも。でもセルフアップデートするやつ的には微妙かも。
+#セルフアップデートするやつ的には微妙かな。
 #scoop_appsを要確認
 
 フォントは白源（hackgen）がインターネットを見ると比較的おすすめされ気味だったので、採用。

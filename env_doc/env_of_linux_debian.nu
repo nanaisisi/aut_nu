@@ -6,6 +6,13 @@ sudo do-release-upgrade
 #どうしても困った時用。あんまり使わないほうがいい。
 sudo apt install aptitude
 
+#ubuntu
+sudo wget https://www.ubuntulinux.jp/ubuntu-jp-ppa-keyring.gpg -P /etc/apt/trusted.gpg.d/
+sudo wget https://www.ubuntulinux.jp/ubuntu-ja-archive-keyring.gpg -P /etc/apt/trusted.gpg.d/
+sudo wget https://www.ubuntulinux.jp/sources.list.d/mantic.list -O /etc/apt/sources.list.d/ubuntu-ja.list
+sudo apt update
+
+
 #コンパイルは時間がかかるのでGitのReleaseなどからバイナリが高速で手に入る用に。
 cargo install cargo-binstall
 #その後のアプリ管理
