@@ -40,94 +40,97 @@ gpgv
 grep
 gzip
 helix
-inetutils/stable,now 2.5 aarch64 [installed]
-jsoncpp/stable,now 1.9.6 aarch64 [installed,automatic]
-krb5/stable,now 1.21.3 aarch64 [installed,automatic]
-ldns/stable,now 1.8.4 aarch64 [installed,automatic]
-less/stable,now 668 aarch64 [installed]
-libandroid-glob/stable,now 0.6-2 aarch64 [installed]
-libandroid-selinux/stable,now 14.0.0.11 aarch64 [installed,automatic]
-libandroid-support/stable,now 29 aarch64 [installed]
-libandroid-utimes/stable,now 0.4 aarch64 [installed,automatic]
-libarchive/stable,now 3.7.7 aarch64 [installed,automatic]
-libassuan/stable,now 3.0.1-2 aarch64 [installed]
-libbz2/stable,now 1.0.8-6 aarch64 [installed]
-libc++/stable,now 27c aarch64 [installed]
-libcap-ng/stable,now 2:0.8.5 aarch64 [installed]
-libcompiler-rt/stable,now 19.1.6 aarch64 [installed,automatic]
-libcurl/stable,now 8.11.1 aarch64 [installed]
-libdb/stable,now 18.1.40-4 aarch64 [installed,automatic]
-libedit/stable,now 20240517-3.1-0 aarch64 [installed,automatic]
-libevent/stable,now 2.1.12-2 aarch64 [installed]
-libexpat/stable,now 2.6.4 aarch64 [installed,automatic]
-libffi/stable,now 3.4.6-1 aarch64 [installed,automatic]
-libgcrypt/stable,now 1.11.0 aarch64 [installed]
-libgmp/stable,now 6.3.0-1 aarch64 [installed]
-libgnutls/stable,now 3.8.5 aarch64 [installed]          libgpg-error/stable,now 1.50 aarch64 [installed]
-libiconv/stable,now 1.17 aarch64 [installed]
-libidn2/stable,now 2.3.7 aarch64 [installed]
-libjansson/stable,now 2.14 aarch64 [installed,automatic]
-libllvm/stable,now 19.1.6 aarch64 [installed,automatic]
-libltdl/stable,now 2.5.4 aarch64 [installed,automatic]
-liblz4/stable,now 1.10.0 aarch64 [installed]
-liblzma/stable,now 5.6.3 aarch64 [installed]
-libmd/stable,now 1.1.0 aarch64 [installed]
-libmpfr/stable,now 4.2.1 aarch64 [installed]
-libnettle/stable,now 3.10 aarch64 [installed]
-libnghttp2/stable,now 1.64.0 aarch64 [installed]        libnghttp3/stable,now 1.7.0 aarch64 [installed]
-libnpth/stable,now 1.6-2 aarch64 [installed]
-libresolv-wrapper/stable,now 1.1.7-4 aarch64 [installed,automatic]
-libsmartcols/stable,now 2.40.2-2 aarch64 [installed]
-libsqlite/stable,now 3.47.2-1 aarch64 [installed,automatic]
-libssh2/stable,now 1.11.1 aarch64 [installed]
-libtirpc/stable,now 1.3.6 aarch64 [installed]
-libtool/stable,now 2.5.4 aarch64 [installed,automatic]  libunbound/stable,now 1.22.0 aarch64 [installed]
-libunistring/stable,now 1.3 aarch64 [installed]
-libuv/stable,now 1.49.2 aarch64 [installed,automatic]
-libxml2/stable,now 2.13.5 aarch64 [installed,automatic]
-lld/stable,now 19.1.6 aarch64 [installed,automatic]
-llvm/stable,now 19.1.6 aarch64 [installed]
-lsof/stable,now 4.99.4 aarch64 [installed]
-m4/stable,now 1.4.19-4 aarch64 [installed,automatic]
-make/stable,now 4.4.1 aarch64 [installed,automatic]
-nano/stable,now 8.3 aarch64 [installed]
-ncurses/stable,now 6.5.20240831-2 aarch64 [installed]
-ndk-sysroot/stable,now 27c aarch64 [installed,automatic]
-nerdfix/stable,now 0.4.2 aarch64 [installed]
-net-tools/stable,now 2.10.0 aarch64 [installed]
-nushell/stable,now 0.101.0 aarch64 [installed]
-openssh-sftp-server/stable,now 9.9p1-4 aarch64 [installed,automatic]
-openssh/stable,now 9.9p1-4 aarch64 [installed,automatic]
-openssl/stable,now 1:3.3.2 aarch64 [installed]
-patch/stable,now 2.7.6-4 aarch64 [installed]
-pcre2/stable,now 10.44 aarch64 [installed]
-perl/stable,now 5.38.2-3 aarch64 [installed,automatic]
-pkg-config/stable,now 0.29.2-2 aarch64 [installed,automatic]
-procps/stable,now 3.3.17-5 aarch64 [installed]
-psmisc/stable,now 23.7 aarch64 [installed]
-readline/stable,now 8.2.13 aarch64 [installed]
-resolv-conf/stable,now 1.3 aarch64 [installed]
-rhash/stable,now 1.4.5 aarch64 [installed,automatic]
-rust-std-aarch64-linux-android/stable,now 1.83.0-2 all [installed,automatic]
-rust/stable,now 1.83.0-2 aarch64 [installed]
-sed/stable,now 4.9-1 aarch64 [installed]
-sheldon/stable,now 0.8.0 aarch64 [installed]
-starship/stable,now 1.22.1 aarch64 [installed]
-tar/stable,now 1.35 aarch64 [installed]
-termux-am-socket/stable,now 1.5.0 aarch64 [installed]
-termux-am/stable,now 0.8.0-1 all [installed]
-termux-auth/stable,now 1.5.0 aarch64 [installed,automatic]
-termux-exec/stable,now 1:1.0 aarch64 [installed]
-termux-keyring/stable,now 3.12-1 all [installed]
-termux-licenses/stable,now 2.0-3 all [installed]
-termux-tools/stable,now 1.44.6 aarch64 [installed]
-tree-sitter/stable,now 0.24.6-1 aarch64 [installed,automatic]
-unzip/stable,now 6.0-9 aarch64 [installed]
-util-linux/stable,now 2.40.2-2 aarch64 [installed]
-xxhash/stable,now 0.8.3 aarch64 [installed]
-xz-utils/stable,now 5.6.3 aarch64 [installed]
-zlib/stable,now 1.3.1 aarch64 [installed]
-zstd/stable,now
+inetutils
+jsoncpp
+krb
+ldns
+less
+libandroid-glob
+libandroid-selinux
+libandroid-support
+libandroid-utimes
+libarchive7.7
+libassuan0.1-2
+libbz20.8-6
+libc++c
+libcap-ng
+libcompiler-rt1.6
+libcurl11.1
+libdb1.40-4
+libedit
+libevent1.12-2
+libexpat6.4
+libffi4.6-1
+libgcrypt11.0
+libgmp3.0-1
+libgnutls8.5
+libgpg-error50
+libiconv17
+libidn23.7
+libjansson14
+libllvm1.6
+libltdl5.4
+liblz410.0
+liblzma6.3
+libmd1.0
+libmpfr2.1
+libnettle10
+libnghttp2.0
+libnghttp37.0
+libnpth6-2
+libresolv-wrapper1.7-4
+libsmartcols40.2-2
+libsqlite47.2-1
+libssh211.1
+libtirpc3.6
+libtool5.4
+libunbound22.0
+libunistring
+libuv49.2
+libxml213.5
+lld1.6
+llvm1.6
+lsof99.4
+m44.19-4
+make4.1
+nano3
+ncurses5.20240831-2
+ndk-sysroot
+nerdfix4.2
+net-tools10.0
+nushell101.0
+openssh-sftp-server9p1-4
+openssh9p1-4
+openssl/stable,now1:3.3.2
+patch7.6-4
+pcre244
+perl38.2-3
+pkg-config29.2-2
+procps3.17-5
+psmisc/stable,now23.7
+readline2.13
+resolv-conf3
+rhash4.5
+rust-std--linux-android83.0-2
+rust83.0-2
+sed9-1
+sheldon8.0
+starship22.1
+tar35
+termux-am-socket5.0
+termux-am8.0-1
+termux-auth
+termux-exec
+termux-keyring
+termux-licenses
+termux-tools
+tree-sitter
+unzip
+util-linux
+xxhash
+xz-utils
+zlib
+zstd
 git-delta
 sccache
 fselect
