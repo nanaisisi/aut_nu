@@ -5,7 +5,7 @@ termux-change-repo
 #mirror asia? (not china...)
 termux-setup-storage
 
-#かなり標準リポジトリに入ってるので、便利ではある。入っていないものは厄介。
+#かなり標準リポジトリに入ってるので、便利ではある。入っていないものは厄介。rustupがない代わりにrustのcargoパッケージマネージャのパッケージそのものはそこそこ入ってるのが印象的
 
 gh extension install github/gh-copilot
 
