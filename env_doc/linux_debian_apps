@@ -26,14 +26,18 @@ gh
 apt-fast
 apt-altitude
 
-zip 7zip curl wget vim make git gawk binutils file tree man gh build-essential gcc gdb gnat llvm clang
+zip 7zip curl wget vim make git gawk binutils file tree man gh build-essential gcc gdb gnat llvm clang apt-fast aptitude
 
 # ubuntu
-# sudo add-apt-repository ppa:maveonair/helix-editor
-# sudo apt update
-# sudo apt install helix
+sudo add-apt-repository ppa:maveonair/helix-editor
+sudo apt update
+sudo apt install helix
+
+#
+sudo add-apt-repository ppa:apt-fast/stable
+sudo apt-get update
+sudo apt-get -y install apt-fast
 
 # debian_not_ubuntu
-# echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ stable main" | sudo tee /etc/apt/sources.list.d/azlux.list
-# sudo wget -O /usr/share/keyrings/azlux-archive-keyring.gpg  https://azlux.fr/repo.gpg
-# "deb http://packages.azlux.fr/debian/ testing main"
+echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ stable main" | sudo tee /etc/apt/sources.list.d/azlux.list
+sudo wget -O /usr/share/keyrings/azlux-archive-keyring.gpg  https://azlux.fr/repo.gpg
