@@ -26,7 +26,7 @@ gh
 apt-fast
 apt-altitude
 
-zip 7zip curl wget vim make git gawk binutils file tree man gh build-essential gcc gdb gnat llvm clang 
+zip 7zip curl wget vim make git gawk binutils file tree man gh build-essential gcc gdb gnat llvm clang
 
 # ubuntu
 # sudo add-apt-repository ppa:maveonair/helix-editor
