@@ -71,7 +71,6 @@ cpu-x
 curl
 dash
 dbus-x11
-deb-get
 dejagnu
 diffutils
 dirmngr
@@ -133,7 +132,6 @@ libmpfr-dev
 libpam-systemd
 libpgm-5.3-0
 libpolkit-agent-1-0
-libprocps8
 libssl-dev
 libudev-dev
 libuim-data
@@ -165,7 +163,6 @@ manpages
 media-types
 mercurial
 mesa-utils
-mime-support
 modemmanager
 mold
 motd-news-config
@@ -175,7 +172,6 @@ ncurses-bin
 neovim
 nginx
 ninja-build
-onefetch
 openocd
 openssh-client
 packagekit-tools
@@ -193,8 +189,6 @@ psmisc
 python3-apport
 python3-pip
 python3
-qemu-system-arm
-qemu
 rcs
 ripgrep
 rsync
