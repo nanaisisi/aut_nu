@@ -1,6 +1,4 @@
-$nu.env-path
-$env.PATH = ($env.PATH | split row (char esep) | prepend '~/.cargo/bin/')
-
+#$nu.env-path
 #my.example.path
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.local/share/JetBrains/Toolbox/scripts')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/always/tools/ada/alire/alr-2.0.1-bin-x86_64-linux/bin')
@@ -9,20 +7,19 @@ $env.PATH = ($env.PATH | split row (char esep) | prepend '~/snap/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.rye/shims')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.elan/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.cargo/bin/')
-mkdir ~/.cache/starship
-starship init nu | save -f ~/.cache/starship/init.nu
 
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
-mkdir ~/.cache/starship
-starship init nu | save -f ~/.cache/starship/init.nu
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/home/orag/always/tools/ada/alire/alr-2.0.1-bin-x86_64-linux/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/home/orag/snap/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/home/orag/.rye/shims')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/home/orag/.cargo/bin')
 
+#$nu.config-path
+mkdir ($nu.data-dir | path join "vendor/autoload")
+starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
 
-.bashrc
+#.bashrc
 export PATH=$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts
 export PATH=$PATH:$HOME/always/tools/ada/alire/alr-2.0.1-bin-x86_64-linux/bin
 export PATH=$PATH:$HOME/always/tools/ada/aura/bin
@@ -38,6 +35,13 @@ eval "$(fzf --bash)"
 eval "$(mcfly init bash)"
 eval "$(sheldon source)"
 
+. "$HOME/.cargo/env"
+export LANG=ja_JP.UTF-8
+
+
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-.profileあたりで日本語入力系とかGUI系、日本語フォント系、アレかも
+eval "$(starship init bash)"
+
+
+#.profileあたりで日本語入力系とかGUI系、日本語フォント系、アレかも

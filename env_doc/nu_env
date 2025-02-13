@@ -1,11 +1,8 @@
 #hx $nu.env-path
-
-mkdir ~/.cache/starship
-starship init nu | save -f ~/.cache/starship/init.nu
+#if linux-path
 
 #hx $nu.config-path
 
-use ~/.cache/starship/init.nu
 $env.config.buffer_editor = "hx"
 $env.config.edit_mode = 'vi'
 #$env.config = { rm: {
