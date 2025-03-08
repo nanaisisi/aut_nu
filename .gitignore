@@ -1,5 +1,1 @@
-.clj-kondo/.cache/v1/lock
-.lsp/.cache/db.transit.json
-v1
-/.lsp/.cache
-/.clj-kondo/.cache/v1
+.clj-kondo/.cache/v1/lock .lsp/.cache/db.transit.json v1 /.lsp/.cache /.clj-kondo/.cache/v1 
