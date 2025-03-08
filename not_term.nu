@@ -1,3 +1,2 @@
-rustup self
-update
+rustup self update
 rustup update

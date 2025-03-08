@@ -1,8 +1,7 @@
 #sudo apt-get update
 #sudo apt-get dist-upgrade
 #のほうがcli的にはいいかも？
-sudo apt
-update
+sudo apt update
 sudo apt
 dist-upgrade
 -y
