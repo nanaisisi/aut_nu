@@ -1,6 +1,4 @@
-gh extension
-upgrade
-gh-copilot
+gh extension upgrade gh-copilot
 # cargo install-update -l コマンドを実行し、出力を取得
 let output = (cargo install-update
 -l
