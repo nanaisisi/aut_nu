@@ -1,1 +1,4 @@
-.clj-kondo/.cache/v1/lock .lsp/.cache/db.transit.json v1 /.lsp/.cache /.clj-kondo/.cache/v1 
+node_modules
+package-lock.json
+target
+*.lock
