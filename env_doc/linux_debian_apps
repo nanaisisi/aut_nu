@@ -33,7 +33,7 @@ sudo add-apt-repository ppa:maveonair/helix-editor
 sudo apt update
 sudo apt install helix
 
-#
+#apt-fast
 sudo add-apt-repository ppa:apt-fast/stable
 sudo apt-get update
 sudo apt-get -y install apt-fast
@@ -41,6 +41,12 @@ sudo apt-get -y install apt-fast
 # debian
 echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ stable main" | sudo tee /etc/apt/sources.list.d/azlux.list
 sudo wget -O /usr/share/keyrings/azlux-archive-keyring.gpg  https://azlux.fr/repo.gpg
+
+#nushell
+curl -fsSL https://apt.fury.io/nushell/gpg.key | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/fury-nushell.gpg
+echo "deb https://apt.fury.io/nushell/ /" | sudo tee /etc/apt/sources.list.d/fury.list
+sudo apt update
+sudo apt install nushell
 
 # ubuntu
 
