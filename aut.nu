@@ -13,8 +13,7 @@ for line in $lines {if ($line | str contains
             # "No" が含まれている場合は無視print "No update needed for cargo-binstall"
 } else {
             # "No" が含まれていない場合は更新コマンドを実行print "Updating cargo-binstall"
-cargo binstall --force
-cargo-binstall
+cargo binstall --force cargo-binstall
 } } else if ($line | str contains
 "cargo-update"
 ) {if ($line | str contains
@@ -23,9 +22,7 @@ cargo-binstall
             # "No" が含まれている場合は無視print "No update needed for cargo-update"
 continue } else {
             # "No" が含まれていない場合は更新コマンドを実行print "Updating cargo-update"
-cargo binstall
---force
-cargo-update
+cargo binstall --force cargo-update
 } } else if ( $line | str contains "erg" ) {
     if ( $line | str contains "No") {
             # "No" が含まれている場合は無視print "No update needed for erg"
