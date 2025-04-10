@@ -1,8 +1,6 @@
 gh extension upgrade gh-copilot
 # cargo install-update -l コマンドを実行し、出力を取得
-let output = (cargo install-update
--l
-)
+let output = (cargo install-update -l)
 # 出力を行ごとに分割
 let lines = $output | lines # cargo-update の行を解析
 for line in $lines {if ($line | str contains
@@ -32,5 +30,4 @@ cargo install erg -f --features "japanese full" }
 } }
 for line in $lines {if ($line | str contains "Yes"
 ) {print "cargo apps updating"
-cargo install-update -a
-}}
+cargo install-update -a }}
