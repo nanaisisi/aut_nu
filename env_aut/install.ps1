@@ -1,50 +1,23 @@
-#Ref  Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+#originally created by: scoop project
+#get.scoop.sh
+#https://github.com/ScoopInstaller/Install/blob/master/install.ps1
 
 #Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 # Invoke-RestMethod -Uri https://github.com/nanaisisi/aut_nu/tree/main/env_aut/install.ps1 | Invoke-Expression
 
-# Issue Tracker: https://github.com/ScoopInstaller/Install/issues
-# Unlicense License:
-#
-# This is free and unencumbered software released into the public domain.
-#
-# Anyone is free to copy, modify, publish, use, compile, sell, or
-# distribute this software, either in source code form or as a compiled
-# binary, for any purpose, commercial or non-commercial, and by any
-# means.
-#
-# In jurisdictions that recognize copyright laws, the author or authors
-# of this software dedicate any and all copyright interest in the
-# software to the public domain. We make this dedication for the benefit
-# of the public at large and to the detriment of our heirs and
-# successors. We intend this dedication to be an overt act of
-# relinquishment in perpetuity of all present and future rights to this
-# software under copyright law.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-# IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-# OTHER DEALINGS IN THE SOFTWARE.
-#
-# For more information, please refer to <http://unlicense.org/>
+# Issue Tracker: https://github.com/nanaisisi/aut_nu/issues
 
 <#
 .SYNOPSIS
-    Scoop installer.
+    Nis installer.
 .DESCRIPTION
-    The installer of Scoop. For details please check the website and wiki.
-.PARAMETER ScoopDir
-    Specifies Scoop root path.
-    If not specified, Scoop will be installed to '$env:USERPROFILE\scoop'.
-.PARAMETER ScoopGlobalDir
-    Specifies directory to store global apps.
-    If not specified, global apps will be installed to '$env:ProgramData\scoop'.
-.PARAMETER ScoopCacheDir
+    The installer of Nis. For details please check the website and wiki.
+.PARAMETER NisDir
+    Specifies Nis root path.
+    If not specified, Nis will be installed to '$env:USERPROFILE\aut_nu'.
+.PARAMETER NisCacheDir
     Specifies cache directory.
-    If not specified, caches will be downloaded to '$ScoopDir\cache'.
+    If not specified, caches will be downloaded to '$NisDir\cache'.
 .PARAMETER NoProxy
     Bypass system proxy during the installation.
 .PARAMETER Proxy
@@ -56,14 +29,13 @@
 .PARAMETER RunAsAdmin
     Force to run the installer as administrator.
 .LINK
-    https://scoop.sh
+    https://github.com/nanaisisi/aut_nu/
 .LINK
-    https://github.com/ScoopInstaller/Scoop/wiki
+    https://github.com/nanaisisi/aut_nu/wiki
 #>
 param(
-    [String] $ScoopDir,
-    [String] $ScoopGlobalDir,
-    [String] $ScoopCacheDir,
+    [String] $NisDir,
+    [String] $NisCacheDir,
     [Switch] $NoProxy,
     [Uri] $Proxy,
     [System.Management.Automation.PSCredential] $ProxyCredential,
@@ -112,7 +84,7 @@ function Deny-Install {
 
 function Test-LanguageMode {
     if ($ExecutionContext.SessionState.LanguageMode -ne 'FullLanguage') {
-        Write-Output 'Scoop requires PowerShell FullLanguage mode to run, current PowerShell environment is restricted.'
+        Write-Output 'Nis requires PowerShell FullLanguage mode to run, current PowerShell environment is restricted.'
         Write-Output 'Abort.'
 
         if ($IS_EXECUTED_FROM_IEX) {
@@ -140,39 +112,39 @@ function Test-IsAdministrator {
 }
 
 function Test-Prerequisite {
-    # Scoop requires PowerShell 5 at least
+    # Nis requires PowerShell 5 at least
     if (($PSVersionTable.PSVersion.Major) -lt 5) {
-        Deny-Install 'PowerShell 5 or later is required to run Scoop. Go to https://microsoft.com/powershell to get the latest version of PowerShell.'
+        Deny-Install 'PowerShell 5 or later is required to run Nis. Go to https://microsoft.com/powershell to get the latest version of PowerShell.'
     }
 
-    # Scoop requires TLS 1.2 SecurityProtocol, which exists in .NET Framework 4.5+
+    # Nis requires TLS 1.2 SecurityProtocol, which exists in .NET Framework 4.5+
     if ([System.Enum]::GetNames([System.Net.SecurityProtocolType]) -notcontains 'Tls12') {
-        Deny-Install 'Scoop requires .NET Framework 4.5+ to work. Go to https://microsoft.com/net/download to get the latest version of .NET Framework.'
+        Deny-Install 'Nis requires .NET Framework 4.5+ to work. Go to https://microsoft.com/net/download to get the latest version of .NET Framework.'
     }
 
     # Ensure Robocopy.exe is accessible
     if (!(Test-CommandAvailable('robocopy'))) {
-        Deny-Install "Scoop requires 'C:\Windows\System32\Robocopy.exe' to work. Please make sure 'C:\Windows\System32' is in your PATH."
+        Deny-Install "Nis requires 'C:\Windows\System32\Robocopy.exe' to work. Please make sure 'C:\Windows\System32' is in your PATH."
     }
 
-    # Detect if RunAsAdministrator, there is no need to run as administrator when installing Scoop
+    # Detect if RunAsAdministrator, there is no need to run as administrator when installing Nis
     if (!$RunAsAdmin -and (Test-IsAdministrator)) {
         # Exception: Windows Sandbox, GitHub Actions CI
         $exception = ($env:USERNAME -eq 'WDAGUtilityAccount') -or ($env:GITHUB_ACTIONS -eq 'true' -and $env:CI -eq 'true')
         if (!$exception) {
-            Deny-Install 'Running the installer as administrator is disabled by default, see https://github.com/ScoopInstaller/Install#for-admin for details.'
+            Deny-Install 'Running the installer as administrator is disabled by default, see https://github.com/Nissisi/Install#for-admin for details.'
         }
     }
 
     # Show notification to change execution policy
     $allowedExecutionPolicy = @('Unrestricted', 'RemoteSigned', 'ByPass')
     if ((Get-ExecutionPolicy).ToString() -notin $allowedExecutionPolicy) {
-        Deny-Install "PowerShell requires an execution policy in [$($allowedExecutionPolicy -join ', ')] to run Scoop. For example, to set the execution policy to 'RemoteSigned' please run 'Set-ExecutionPolicy RemoteSigned -Scope CurrentUser'."
+        Deny-Install "PowerShell requires an execution policy in [$($allowedExecutionPolicy -join ', ')] to run Nis. For example, to set the execution policy to 'RemoteSigned' please run 'Set-ExecutionPolicy RemoteSigned -Scope CurrentUser'."
     }
 
-    # Test if scoop is installed, by checking if scoop command exists.
-    if (Test-CommandAvailable('scoop')) {
-        Deny-Install "Scoop is already installed. Run 'scoop update' to get the latest version."
+    # Test if Nis is installed, by checking if Nis command exists.
+    if (Test-CommandAvailable('Nis')) {
+        Deny-Install "Nis is already installed. Run 'Nis update' to get the latest version."
     }
 }
 
@@ -247,151 +219,15 @@ function Test-isFileLocked {
     }
 }
 
-function Expand-ZipArchive {
-    param(
-        [String] $path,
-        [String] $to
-    )
 
-    if (!(Test-Path $path)) {
-        Deny-Install "Unzip failed: can't find $path to unzip."
-    }
-
-    # Check if the zip file is locked, by antivirus software for example
-    $retries = 0
-    while ($retries -le 10) {
-        if ($retries -eq 10) {
-            Deny-Install "Unzip failed: can't unzip because a process is locking the file."
-        }
-        if (Test-isFileLocked $path) {
-            Write-InstallInfo "Waiting for $path to be unlocked by another process... ($retries/10)"
-            $retries++
-            Start-Sleep -Seconds 2
-        } else {
-            break
-        }
-    }
-
-    # Workaround to suspend Expand-Archive verbose output,
-    # upstream issue: https://github.com/PowerShell/Microsoft.PowerShell.Archive/issues/98
-    $oldVerbosePreference = $VerbosePreference
-    $global:VerbosePreference = 'SilentlyContinue'
-
-    # Disable progress bar to gain performance
-    $oldProgressPreference = $ProgressPreference
-    $global:ProgressPreference = 'SilentlyContinue'
-
-    # PowerShell 5+: use Expand-Archive to extract zip files
-    Microsoft.PowerShell.Archive\Expand-Archive -Path $path -DestinationPath $to -Force
-    $global:VerbosePreference = $oldVerbosePreference
-    $global:ProgressPreference = $oldProgressPreference
-}
-
-function Out-UTF8File {
-    param(
-        [Parameter(Mandatory = $True, Position = 0)]
-        [Alias('Path')]
-        [String] $FilePath,
-        [Switch] $Append,
-        [Switch] $NoNewLine,
-        [Parameter(ValueFromPipeline = $True)]
-        [PSObject] $InputObject
-    )
-    process {
-        if ($Append) {
-            [System.IO.File]::AppendAllText($FilePath, $InputObject)
-        } else {
-            if (!$NoNewLine) {
-                # Ref: https://stackoverflow.com/questions/5596982
-                # Performance Note: `WriteAllLines` throttles memory usage while
-                # `WriteAllText` needs to keep the complete string in memory.
-                [System.IO.File]::WriteAllLines($FilePath, $InputObject)
-            } else {
-                # However `WriteAllText` does not add ending newline.
-                [System.IO.File]::WriteAllText($FilePath, $InputObject)
-            }
-        }
-    }
-}
-
-function Import-ScoopShim {
-    Write-InstallInfo 'Creating shim...'
-    # The scoop executable
-    $path = "$SCOOP_APP_DIR\bin\scoop.ps1"
-
-    if (!(Test-Path $SCOOP_SHIMS_DIR)) {
-        New-Item -Type Directory $SCOOP_SHIMS_DIR | Out-Null
-    }
-
-    # The scoop shim
-    $shim = "$SCOOP_SHIMS_DIR\scoop"
-
-    # Convert to relative path
-    Push-Location $SCOOP_SHIMS_DIR
-    $relativePath = Resolve-Path -Relative $path
-    Pop-Location
-    $absolutePath = Resolve-Path $path
-
-    # if $path points to another drive resolve-path prepends .\ which could break shims
-    $ps1text = if ($relativePath -match '^(\.\\)?\w:.*$') {
-        @(
-            "# $absolutePath",
-            "`$path = `"$path`"",
-            "if (`$MyInvocation.ExpectingInput) { `$input | & `$path $arg @args } else { & `$path $arg @args }",
-            "exit `$LASTEXITCODE"
-        )
-    } else {
-        @(
-            "# $absolutePath",
-            "`$path = Join-Path `$PSScriptRoot `"$relativePath`"",
-            "if (`$MyInvocation.ExpectingInput) { `$input | & `$path $arg @args } else { & `$path $arg @args }",
-            "exit `$LASTEXITCODE"
-        )
-    }
-    $ps1text -join "`r`n" | Out-UTF8File "$shim.ps1"
-
-    # make ps1 accessible from cmd.exe
-    @(
-        "@rem $absolutePath",
-        '@echo off',
-        'setlocal enabledelayedexpansion',
-        'set args=%*',
-        ':: replace problem characters in arguments',
-        "set args=%args:`"='%",
-        "set args=%args:(=``(%",
-        "set args=%args:)=``)%",
-        "set invalid=`"='",
-        'if !args! == !invalid! ( set args= )',
-        'where /q pwsh.exe',
-        'if %errorlevel% equ 0 (',
-        "    pwsh -noprofile -ex unrestricted -file `"$absolutePath`" $arg %args%",
-        ') else (',
-        "    powershell -noprofile -ex unrestricted -file `"$absolutePath`" $arg %args%",
-        ')'
-    ) -join "`r`n" | Out-UTF8File "$shim.cmd"
-
-    @(
-        '#!/bin/sh',
-        "# $absolutePath",
-        'if command -v pwsh.exe > /dev/null 2>&1; then',
-        "    pwsh.exe -noprofile -ex unrestricted -file `"$absolutePath`" $arg `"$@`"",
-        'else',
-        "    powershell.exe -noprofile -ex unrestricted -file `"$absolutePath`" $arg `"$@`"",
-        'fi'
-    ) -join "`n" | Out-UTF8File $shim -NoNewLine
-}
 
 function Get-Env {
     param(
-        [String] $name,
-        [Switch] $global
+        [String] $name
     )
 
-    $RegisterKey = if ($global) {
-        Get-Item -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager'
-    } else {
-        Get-Item -Path 'HKCU:'
-    }
+    $RegisterKey = Get-Item -Path 'HKCU:'
+
 
     $EnvRegisterKey = $RegisterKey.OpenSubKey('Environment')
     $RegistryValueOption = [Microsoft.Win32.RegistryValueOptions]::DoNotExpandEnvironmentNames
@@ -426,15 +262,9 @@ function Write-Env {
     param(
         [String] $name,
         [String] $val,
-        [Switch] $global
     )
 
-    $RegisterKey = if ($global) {
-        Get-Item -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager'
-    } else {
-        Get-Item -Path 'HKCU:'
-    }
-
+    $RegisterKey = Get-Item -Path 'HKCU:'
     $EnvRegisterKey = $RegisterKey.OpenSubKey('Environment', $true)
     if ($val -eq $null) {
         $EnvRegisterKey.DeleteValue($name)
@@ -451,39 +281,15 @@ function Write-Env {
     Publish-Env
 }
 
-function Add-ShimsDirToPath {
-    # Get $env:PATH of current user
-    $userEnvPath = Get-Env 'PATH'
-
-    if ($userEnvPath -notmatch [Regex]::Escape($SCOOP_SHIMS_DIR)) {
-        $h = (Get-PSProvider 'FileSystem').Home
-        if (!$h.EndsWith('\')) {
-            $h += '\'
-        }
-
-        if (!($h -eq '\')) {
-            $friendlyPath = "$SCOOP_SHIMS_DIR" -Replace ([Regex]::Escape($h)), '~\'
-            Write-InstallInfo "Adding $friendlyPath to your path."
-        } else {
-            Write-InstallInfo "Adding $SCOOP_SHIMS_DIR to your path."
-        }
-
-        # For future sessions
-        Write-Env 'PATH' "$SCOOP_SHIMS_DIR;$userEnvPath"
-        # For current session
-        $env:PATH = "$SCOOP_SHIMS_DIR;$env:PATH"
-    }
-}
-
 function Use-Config {
-    if (!(Test-Path $SCOOP_CONFIG_FILE)) {
+    if (!(Test-Path $Nis_CONFIG_FILE)) {
         return $null
     }
 
     try {
-        return (Get-Content $SCOOP_CONFIG_FILE -Raw | ConvertFrom-Json -ErrorAction Stop)
+        return (Get-Content $Nis_CONFIG_FILE -Raw | ConvertFrom-Json -ErrorAction Stop)
     } catch {
-        Deny-Install "ERROR loading $SCOOP_CONFIG_FILE`: $($_.Exception.Message)"
+        Deny-Install "ERROR loading $Nis_CONFIG_FILE`: $($_.Exception.Message)"
     }
 }
 
@@ -495,71 +301,47 @@ function Add-Config {
         [String] $Value
     )
 
-    $scoopConfig = Use-Config
+    $NisConfig = Use-Config
 
-    if ($scoopConfig -is [System.Management.Automation.PSObject]) {
+    if ($NisConfig -is [System.Management.Automation.PSObject]) {
         if ($Value -eq [bool]::TrueString -or $Value -eq [bool]::FalseString) {
             $Value = [System.Convert]::ToBoolean($Value)
         }
-        if ($null -eq $scoopConfig.$Name) {
-            $scoopConfig | Add-Member -MemberType NoteProperty -Name $Name -Value $Value
+        if ($null -eq $NisConfig.$Name) {
+            $NisConfig | Add-Member -MemberType NoteProperty -Name $Name -Value $Value
         } else {
-            $scoopConfig.$Name = $Value
+            $NisConfig.$Name = $Value
         }
     } else {
-        $baseDir = Split-Path -Path $SCOOP_CONFIG_FILE
+        $baseDir = Split-Path -Path $Nis_CONFIG_FILE
         if (!(Test-Path $baseDir)) {
             New-Item -Type Directory $baseDir | Out-Null
         }
 
-        $scoopConfig = New-Object PSObject
-        $scoopConfig | Add-Member -MemberType NoteProperty -Name $Name -Value $Value
+        $NisConfig = New-Object PSObject
+        $NisConfig | Add-Member -MemberType NoteProperty -Name $Name -Value $Value
     }
 
     if ($null -eq $Value) {
-        $scoopConfig.PSObject.Properties.Remove($Name)
+        $NisConfig.PSObject.Properties.Remove($Name)
     }
 
-    ConvertTo-Json $scoopConfig | Set-Content $SCOOP_CONFIG_FILE -Encoding ASCII
-    return $scoopConfig
+    ConvertTo-Json $NisConfig | Set-Content $Nis_CONFIG_FILE -Encoding ASCII
+    return $NisConfig
 }
 
 function Add-DefaultConfig {
-    # If user-level SCOOP env not defined, save to root_path
-    if (!(Get-Env 'SCOOP')) {
-        if ($SCOOP_DIR -ne "$env:USERPROFILE\scoop") {
-            Write-Verbose "Adding config root_path: $SCOOP_DIR"
-            Add-Config -Name 'root_path' -Value $SCOOP_DIR | Out-Null
-        }
-    }
+    # If user-level Nis env not defined, save to root_path
+            Write-Verbose "Adding config root_path: $Nis_DIR"
+            Add-Config -Name 'root_path' -Value $Nis_DIR | Out-Null
 
-    # Use system SCOOP_GLOBAL, or set system SCOOP_GLOBAL
-    # with $env:SCOOP_GLOBAL if RunAsAdmin, otherwise save to global_path
-    if (!(Get-Env 'SCOOP_GLOBAL' -global)) {
-        if ((Test-IsAdministrator) -and $env:SCOOP_GLOBAL) {
-            Write-Verbose "Setting System Environment Variable SCOOP_GLOBAL: $env:SCOOP_GLOBAL"
-            [Environment]::SetEnvironmentVariable('SCOOP_GLOBAL', $env:SCOOP_GLOBAL, 'Machine')
-        } else {
-            if ($SCOOP_GLOBAL_DIR -ne "$env:ProgramData\scoop") {
-                Write-Verbose "Adding config global_path: $SCOOP_GLOBAL_DIR"
-                Add-Config -Name 'global_path' -Value $SCOOP_GLOBAL_DIR | Out-Null
-            }
-        }
-    }
 
-    # Use system SCOOP_CACHE, or set system SCOOP_CACHE
-    # with $env:SCOOP_CACHE if RunAsAdmin, otherwise save to cache_path
-    if (!(Get-Env 'SCOOP_CACHE' -global)) {
-        if ((Test-IsAdministrator) -and $env:SCOOP_CACHE) {
-            Write-Verbose "Setting System Environment Variable SCOOP_CACHE: $env:SCOOP_CACHE"
-            [Environment]::SetEnvironmentVariable('SCOOP_CACHE', $env:SCOOP_CACHE, 'Machine')
-        } else {
-            if ($SCOOP_CACHE_DIR -ne "$SCOOP_DIR\cache") {
-                Write-Verbose "Adding config cache_path: $SCOOP_CACHE_DIR"
-                Add-Config -Name 'cache_path' -Value $SCOOP_CACHE_DIR | Out-Null
-            }
-        }
-    }
+    # Use system Nis_CACHE, or set system Nis_CACHE
+    # with $env:Nis_CACHE if RunAsAdmin, otherwise save to cache_path
+
+                Write-Verbose "Adding config cache_path: $Nis_CACHE_DIR"
+                Add-Config -Name 'cache_path' -Value $Nis_CACHE_DIR | Out-Null
+
 
     # save current datatime to last_update
     Add-Config -Name 'last_update' -Value ([System.DateTime]::Now.ToString('o')) | Out-Null
@@ -573,7 +355,7 @@ function Test-CommandAvailable {
     return [Boolean](Get-Command $Command -ErrorAction SilentlyContinue)
 }
 
-function Install-Scoop {
+function Install-Nis {
     Write-InstallInfo 'Initializing...'
     # Validate install parameters
     Test-ValidateParameter
@@ -582,10 +364,9 @@ function Install-Scoop {
     # Enable TLS 1.2
     Optimize-SecurityProtocol
 
-    # Download scoop from GitHub
+    # Download Nis from GitHub
     Write-InstallInfo 'Downloading...'
     $downloader = Get-Downloader
-    [bool]$downloadZipsRequired = $True
 
     if (Test-CommandAvailable('git')) {
         $old_https = $env:HTTPS_PROXY
@@ -596,88 +377,25 @@ function Install-Scoop {
                 $Env:HTTP_PROXY = $downloader.Proxy.Address
                 $Env:HTTPS_PROXY = $downloader.Proxy.Address
             }
-            Write-Verbose "Cloning $SCOOP_PACKAGE_GIT_REPO to $SCOOP_APP_DIR"
-            git clone -q $SCOOP_PACKAGE_GIT_REPO $SCOOP_APP_DIR
+            Write-Verbose "Cloning $Nis_PACKAGE_GIT_REPO to $Nis_APP_DIR"
+            git clone -q $Nis_PACKAGE_GIT_REPO $Nis_APP_DIR
             if (-Not $?) {
-                throw 'Cloning failed. Falling back to downloading zip files.'
+                throw 'Cloning failed. Falling back to downloading files.'
             }
-            Write-Verbose "Cloning $SCOOP_MAIN_BUCKET_GIT_REPO to $SCOOP_MAIN_BUCKET_DIR"
-            git clone -q $SCOOP_MAIN_BUCKET_GIT_REPO $SCOOP_MAIN_BUCKET_DIR
-            if (-Not $?) {
-                throw 'Cloning failed. Falling back to downloading zip files.'
-            }
-            $downloadZipsRequired = $False
         } catch {
             Write-Warning "$($_.Exception.Message)"
-            $Global:LastExitCode = 0
         } finally {
             $env:HTTPS_PROXY = $old_https
             $env:HTTP_PROXY = $old_http
         }
     }
 
-    if ($downloadZipsRequired) {
-        # 1. download scoop
-        $scoopZipfile = "$SCOOP_APP_DIR\scoop.zip"
-        if (!(Test-Path $SCOOP_APP_DIR)) {
-            New-Item -Type Directory $SCOOP_APP_DIR | Out-Null
-        }
-        Write-Verbose "Downloading $SCOOP_PACKAGE_REPO to $scoopZipfile"
-        $downloader.downloadFile($SCOOP_PACKAGE_REPO, $scoopZipfile)
-        # 2. download scoop main bucket
-        $scoopMainZipfile = "$SCOOP_MAIN_BUCKET_DIR\scoop-main.zip"
-        if (!(Test-Path $SCOOP_MAIN_BUCKET_DIR)) {
-            New-Item -Type Directory $SCOOP_MAIN_BUCKET_DIR | Out-Null
-        }
-        Write-Verbose "Downloading $SCOOP_MAIN_BUCKET_REPO to $scoopMainZipfile"
-        $downloader.downloadFile($SCOOP_MAIN_BUCKET_REPO, $scoopMainZipfile)
 
-        # Extract files from downloaded zip
-        Write-InstallInfo 'Extracting...'
-        # 1. extract scoop
-        $scoopUnzipTempDir = "$SCOOP_APP_DIR\_tmp"
-        Write-Verbose "Extracting $scoopZipfile to $scoopUnzipTempDir"
-        Expand-ZipArchive $scoopZipfile $scoopUnzipTempDir
-        Copy-Item "$scoopUnzipTempDir\scoop-*\*" $SCOOP_APP_DIR -Recurse -Force
-        # 2. extract scoop main bucket
-        $scoopMainUnzipTempDir = "$SCOOP_MAIN_BUCKET_DIR\_tmp"
-        Write-Verbose "Extracting $scoopMainZipfile to $scoopMainUnzipTempDir"
-        Expand-ZipArchive $scoopMainZipfile $scoopMainUnzipTempDir
-        Copy-Item "$scoopMainUnzipTempDir\Main-*\*" $SCOOP_MAIN_BUCKET_DIR -Recurse -Force
-
-        # Cleanup
-        Remove-Item $scoopUnzipTempDir -Recurse -Force
-        Remove-Item $scoopZipfile
-        Remove-Item $scoopMainUnzipTempDir -Recurse -Force
-        Remove-Item $scoopMainZipfile
-    }
-    # Create the scoop shim
-    Import-ScoopShim
-    # Finially ensure scoop shims is in the PATH
-    Add-ShimsDirToPath
-    # Setup initial configuration of Scoop
+    # Setup initial configuration of Nis
     Add-DefaultConfig
 
-    Write-InstallInfo 'Scoop was installed successfully!' -ForegroundColor DarkGreen
-    Write-InstallInfo "Type 'scoop help' for instructions."
-}
-
-function Write-DebugInfo {
-    param($BoundArgs)
-
-    Write-Verbose '-------- PSBoundParameters --------'
-    $BoundArgs.GetEnumerator() | ForEach-Object { Write-Verbose $_ }
-    Write-Verbose '-------- Environment Variables --------'
-    Write-Verbose "`$env:USERPROFILE: $env:USERPROFILE"
-    Write-Verbose "`$env:ProgramData: $env:ProgramData"
-    Write-Verbose "`$env:SCOOP: $env:SCOOP"
-    Write-Verbose "`$env:SCOOP_CACHE: $SCOOP_CACHE"
-    Write-Verbose "`$env:SCOOP_GLOBAL: $env:SCOOP_GLOBAL"
-    Write-Verbose '-------- Selected Variables --------'
-    Write-Verbose "SCOOP_DIR: $SCOOP_DIR"
-    Write-Verbose "SCOOP_CACHE_DIR: $SCOOP_CACHE_DIR"
-    Write-Verbose "SCOOP_GLOBAL_DIR: $SCOOP_GLOBAL_DIR"
-    Write-Verbose "SCOOP_CONFIG_HOME: $SCOOP_CONFIG_HOME"
+    Write-InstallInfo 'Nis was installed successfully!' -ForegroundColor DarkGreen
+    Write-InstallInfo "Type 'Nis help' for instructions."
 }
 
 # Prepare variables
@@ -686,28 +404,16 @@ $IS_EXECUTED_FROM_IEX = ($null -eq $MyInvocation.MyCommand.Path)
 # Abort when the language mode is restricted
 Test-LanguageMode
 
-# Scoop root directory
-$SCOOP_DIR = $ScoopDir, $env:SCOOP, "$env:USERPROFILE\scoop" | Where-Object { -not [String]::IsNullOrEmpty($_) } | Select-Object -First 1
-# Scoop global apps directory
-$SCOOP_GLOBAL_DIR = $ScoopGlobalDir, $env:SCOOP_GLOBAL, "$env:ProgramData\scoop" | Where-Object { -not [String]::IsNullOrEmpty($_) } | Select-Object -First 1
-# Scoop cache directory
-$SCOOP_CACHE_DIR = $ScoopCacheDir, $env:SCOOP_CACHE, "$SCOOP_DIR\cache" | Where-Object { -not [String]::IsNullOrEmpty($_) } | Select-Object -First 1
-# Scoop shims directory
-$SCOOP_SHIMS_DIR = "$SCOOP_DIR\shims"
-# Scoop itself directory
-$SCOOP_APP_DIR = "$SCOOP_DIR\apps\scoop\current"
-# Scoop main bucket directory
-$SCOOP_MAIN_BUCKET_DIR = "$SCOOP_DIR\buckets\main"
-# Scoop config file location
-$SCOOP_CONFIG_HOME = $env:XDG_CONFIG_HOME, "$env:USERPROFILE\.config" | Select-Object -First 1
-$SCOOP_CONFIG_FILE = "$SCOOP_CONFIG_HOME\scoop\config.json"
+# Nis root directory
+$Nis_DIR = $NisDir, $env:Nis, "$env:USERPROFILE\Nis" | Where-Object { -not [String]::IsNullOrEmpty($_) } | Select-Object -First 1
+## Nis cache directory
+$Nis_CACHE_DIR = $NisCacheDir, $env:Nis_CACHE, "$Nis_DIR\cache" | Where-Object { -not [String]::IsNullOrEmpty($_) } | Select-Object -First 1
+# Nis config file location
+$Nis_CONFIG_HOME = $env:XDG_CONFIG_HOME, "$env:USERPROFILE\.config" | Select-Object -First 1
+$Nis_CONFIG_FILE = "$Nis_CONFIG_HOME\Nis\config.json"
 
-# TODO: Use a specific version of Scoop and the main bucket
-$SCOOP_PACKAGE_REPO = 'https://github.com/ScoopInstaller/Scoop/archive/master.zip'
-$SCOOP_MAIN_BUCKET_REPO = 'https://github.com/ScoopInstaller/Main/archive/master.zip'
 
-$SCOOP_PACKAGE_GIT_REPO = 'https://github.com/ScoopInstaller/Scoop.git'
-$SCOOP_MAIN_BUCKET_GIT_REPO = 'https://github.com/ScoopInstaller/Main.git'
+$Nis_PACKAGE_GIT_REPO = 'https://github.com/nanaisisi/aut_nu.git'
 
 # Quit if anything goes wrong
 $oldErrorActionPreference = $ErrorActionPreference
@@ -715,8 +421,30 @@ $ErrorActionPreference = 'Stop'
 
 # Logging debug info
 Write-DebugInfo $PSBoundParameters
-# Bootstrap function
-Install-Scoop
+
+# Nushellの自動インストール（scoop経由）
+function Install-Nushell {
+    if (!(Get-Command 'nu' -ErrorAction SilentlyContinue)) {
+        Write-Output 'Nushellが見つかりません。自動インストールを開始します。'
+        # scoopがなければインストール
+        if (!(Get-Command 'scoop' -ErrorAction SilentlyContinue)) {
+            Write-Output 'scoopが見つかりません。scoopをインストールします。'
+            Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+            Invoke-Expression (Invoke-RestMethod 'https://get.scoop.sh')
+        }
+        # scoopでnushellをインストール
+        scoop install nu
+        Write-Output 'Nushellのインストールが完了しました。'
+    } else {
+        Write-Output 'Nushellは既にインストールされています。'
+    }
+}
+
+# Nushellインストールを最初に実行
+Install-Nushell
 
 # Reset $ErrorActionPreference to original value
 $ErrorActionPreference = $oldErrorActionPreference
+
+scoop install aria2
+scoop install git
