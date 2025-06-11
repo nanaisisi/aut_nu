@@ -32,7 +32,7 @@ rustflags = [
 
 #linux
 
-#sudo apt-get install mold clang
+#sudo apt-fast install mold clang
 [target.x86_64-unknown-linux-gnu]
 linker = "clang"
 rustflags = [
@@ -44,17 +44,17 @@ rustflags = [
 #linux aarch64
 #cargo binstall sccache
 
-#sudo apt-get install mold clang
+#sudo apt-fast install mold clang
 [target.aarch64-unknown-linux-gnu]
 linker = "clang"
 rustflags = ["-C", "link-arg=-fuse-ld=mold"]
 
 #lld(not mold)
-#sudo apt-get install lld clang
+#sudo apt-fast install lld clang
 #[target.x86_64-unknown-linux-gnu]
 #rustflags = ["-C", "link-arg=-fuse-ld=lld"]
 
-#sudo apt-get install lld clang
+#sudo apt-fast install lld clang
 #[target.aarch64-unknown-linux-gnu]
 #rustflags = ["-C", "link-arg=-fuse-ld=lld"]
 
