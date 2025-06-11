@@ -6,19 +6,20 @@
 match (sys host | get name) {
     (str contains "Windows") => (
         # Windows用の処理
-        source win_aut.nu
+        source ./aut_upg/win_aut.nu
+        source ./aut_upg/posix_aut.nu
     ),
     (str contains "Ubuntu") => (
         # Ubuntu用の処理
-        source ubuntu_aut.nu
+        source ./aut_upg/ubuntu_aut.nu
     ),
     (str contains "Debian") => (
         # Linux用の処理
-        source debians_aut.nu
+        source ./aut_upg/debians_aut.nu
     ),
-    (str contains "Kail") => (
+    (str contains "Kali") => (
         # Kali Linux用の処理
-        source debians_aut.nu
+        source ./aut_upg/debians_aut.nu
     ),
     _ => {
         if $nu.os-info.name == "Android" {
@@ -27,7 +28,7 @@ match (sys host | get name) {
             # host名が端末名かつ、
             # nuのOS情報がAndroidなので、
             # Termuxとして処理する
-            source termux_aut.nu
+            source ./aut_upg/termux_aut.nu
         }
         else {
             print (未対応のOS: (sys host | get name))

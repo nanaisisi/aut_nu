@@ -6,7 +6,7 @@
 # Invoke-RestMethod -Uri https://github.com/nanaisisi/aut_nu/tree/main/env_aut/install.ps1 | Invoke-Expression
 
 # Issue Tracker: https://github.com/nanaisisi/aut_nu/issues
-function Install-Nis {
+function Install-aut_nu {
     Write-InstallInfo 'Initializing...'
     # Validate install parameters
     Test-ValidateParameter
@@ -15,7 +15,7 @@ function Install-Nis {
     # Enable TLS 1.2
     Optimize-SecurityProtocol
 
-    # Download Nis from GitHub
+    # Download aut_nu from GitHub
     Write-InstallInfo 'Downloading...'
     $downloader = Get-Downloader
 
@@ -28,8 +28,8 @@ function Install-Nis {
                 $Env:HTTP_PROXY = $downloader.Proxy.Address
                 $Env:HTTPS_PROXY = $downloader.Proxy.Address
             }
-            Write-Verbose "Cloning $Nis_PACKAGE_GIT_REPO to $Nis_APP_DIR"
-            git clone -q $Nis_PACKAGE_GIT_REPO $Nis_APP_DIR
+            Write-Verbose "Cloning $aut_nu_PACKAGE_GIT_REPO to $aut_nu_APP_DIR"
+            git clone -q $aut_nu_PACKAGE_GIT_REPO $aut_nu_APP_DIR
             if (-Not $?) {
                 throw 'Cloning failed. Falling back to downloading files.'
             }
@@ -42,11 +42,11 @@ function Install-Nis {
     }
 
 
-    # Setup initial configuration of Nis
+    # Setup initial configuration of aut_nu
     Add-DefaultConfig
 
-    Write-InstallInfo 'Nis was installed successfully!' -ForegroundColor DarkGreen
-    Write-InstallInfo "Type 'Nis help' for instructions."
+    Write-InstallInfo 'aut_nu was installed successfully!' -ForegroundColor DarkGreen
+    Write-InstallInfo "Type 'aut_nu help' for instructions."
 }
 
 # Prepare variables
@@ -55,16 +55,16 @@ $IS_EXECUTED_FROM_IEX = ($null -eq $MyInvocation.MyCommand.Path)
 # Abort when the language mode is restricted
 Test-LanguageMode
 
-# Nis root directory
-$Nis_DIR = $NisDir, $env:Nis, "$env:USERPROFILE\Nis" | Where-Object { -not [String]::IsNullOrEmpty($_) } | Select-Object -First 1
-## Nis cache directory
-$Nis_CACHE_DIR = $NisCacheDir, $env:Nis_CACHE, "$Nis_DIR\cache" | Where-Object { -not [String]::IsNullOrEmpty($_) } | Select-Object -First 1
-# Nis config file location
-$Nis_CONFIG_HOME = $env:XDG_CONFIG_HOME, "$env:USERPROFILE\.config" | Select-Object -First 1
-$Nis_CONFIG_FILE = "$Nis_CONFIG_HOME\Nis\config.json"
+# aut_nu root directory
+$aut_nu_DIR = $aut_nuDir, $env:aut_nu, "$env:USERPROFILE\aut_nu" | Where-Object { -not [String]::IsNullOrEmpty($_) } | Select-Object -First 1
+## aut_nu cache directory
+$aut_nu_CACHE_DIR = $aut_nuCacheDir, $env:aut_nu_CACHE, "$aut_nu_DIR\cache" | Where-Object { -not [String]::IsNullOrEmpty($_) } | Select-Object -First 1
+# aut_nu config file location
+$aut_nu_CONFIG_HOME = $env:XDG_CONFIG_HOME, "$env:USERPROFILE\.config" | Select-Object -First 1
+$aut_nu_CONFIG_FILE = "$aut_nu_CONFIG_HOME\aut_nu\config.json"
 
 
-$Nis_PACKAGE_GIT_REPO = 'https://github.com/nanaisisi/aut_nu.git'
+$aut_nu_PACKAGE_GIT_REPO = 'https://github.com/nanaisisi/aut_nu.git'
 
 # Quit if anything goes wrong
 $oldErrorActionPreference = $ErrorActionPreference

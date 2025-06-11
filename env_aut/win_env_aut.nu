@@ -24,4 +24,4 @@ winget upgrade
 scoop update -a
 wsl --update --pre-release
 winget install googlechrome
-winget install 
+winget install
