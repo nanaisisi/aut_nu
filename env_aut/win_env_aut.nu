@@ -1,6 +1,6 @@
 
 
-#win_env_aut.nu
+#win_env_upg.nu
 
 #前提条件クリア後のインストール自動化
 #前提条件

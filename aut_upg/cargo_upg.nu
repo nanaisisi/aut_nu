@@ -1,4 +1,3 @@
-# for code test
 mut cargo_all_update_run_flag = false
 mut cargo_update_app_update_run_flag = false
 mut erg_update_run_flag = false
