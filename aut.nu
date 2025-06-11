@@ -1,7 +1,36 @@
+# 実行環境ごとに条件分岐して処理を分ける
+
+match (sys host | get name) {
+    (str contains "Windows") => (
+        # Windows用の処理
+        source win_aut.nu
+    ),
+    (str contains "Ubuntu") => (
+        # Ubuntu用の処理
+        source ubuntu_aut.nu
+    ),
+    (str contains "Debian") => (
+        # Linux用の処理
+        source debians_aut.nu
+    ),
+    (str contains "Kail") => (
+        # Kali Linux用の処理
+        source debians_aut.nu
+    ),
+    (str contains "Termux") => (
+        # Termux用の処理
+        source termux_aut.nu
+    ),
+    _ => {
+        print ($'未対応のOS: ' + (sys host | get name))
+    }
+}
+
 gh extension upgrade gh-copilot
 # cargo install-update -l コマンドを実行し、出力を取得
 let output = (cargo install-update -l)
 # 出力を行ごとに分割
+let lines = $output | lines
 let lines = $output | lines # cargo-update の行を解析
 for line in $lines {if ($line | str contains
 "cargo-binstall"
