@@ -25,11 +25,13 @@ match (sys host | get name) {
     "Debian" => (
         # Linux用の処理
         #source ./aut_env/debians_env.nu
-
+        print "Debian用のインストール処理は未実装です。"
     ),
     "Kali" => (
         # Kali Linux用の処理
+        # ただし、Debian用コードを流用
         #source ./aut_env/debians_env.nu
+        print "Kali Linux用のインストール処理は未実装です。"
     ),
     _ => {
         if $nu.os-info.name == ("Android" | "android") {
@@ -39,6 +41,7 @@ match (sys host | get name) {
             # nuのOS情報がAndroidなので、
             # Termuxとして処理する
             #source ./aut_env/termux_env.nu
+            print "Termux用のインストール処理は未実装です。"
         } else {
             print ("未対応のOS:" + (sys host | get name))
         }
