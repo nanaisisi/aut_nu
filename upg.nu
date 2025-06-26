@@ -33,3 +33,5 @@ match (sys host | get name) {
         }
     }
 }
+
+print "アップデート処理が中断せずに終了しました。"
