@@ -41,3 +41,4 @@ winget install 9NQPSL29BFFF -s msstore
 
 #winget登録ソフトウェアのインストール
 winget install googlechrome
+winget install clink
