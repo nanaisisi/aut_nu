@@ -1,8 +1,7 @@
-
-
 #win_env_upg.nu
 
 #前提条件クリア後のインストール自動化
+#powershell scriptはこの前提条件を満たすためのもの
 #前提条件
 
 #windows

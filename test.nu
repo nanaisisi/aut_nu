@@ -1,5 +1,14 @@
-git fetch
-git merge
+#インストーラーは未実装なため、本リポジトリはクローン済みであると仮定して実行する
+if (which git) {
+    print "Gitがインストールされていることを確認しました。"
+    print "本Gitリポジトリを更新します。"
+    # Gitのリポジトリを更新
+    git fetch
+    git merge
+} else {
+    print "Gitがインストールされていません。Gitをインストールしてください。"
+    exit 1
+}
 
 # 実行環境ごとに条件分岐して処理を分ける
 
