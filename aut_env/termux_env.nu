@@ -10,3 +10,5 @@ termux-setup-storage
 # 必要なパッケージをインストールする
 source termux_pkg.nu
 
+# シェルを変更する
+chsh nu

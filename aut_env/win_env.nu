@@ -10,7 +10,7 @@
 #scoop bucket add extras
 
 #nu(scoop)
-let uv_output = (uv )
+let uv_output = (uv)
 # 出力を行ごとに分割
 let uv_lines = $uv_output | lines # uv実行によるの行を解析
 for uv_line in $uv_lines {
