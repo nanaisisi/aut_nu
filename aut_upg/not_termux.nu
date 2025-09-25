@@ -12,3 +12,9 @@ if (which deno) != null {
 } else {
     print "deno is not installed"
 }
+
+if (which deno) != null {
+    uv self update
+} else {
+    print "deno is not installed"
+}
