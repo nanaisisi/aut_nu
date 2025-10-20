@@ -1,6 +1,8 @@
-mut cargo_all_update_run_flag = false
+mut cargo_binstall_update_run_flag = false
 mut cargo_update_app_update_run_flag = false
 mut erg_update_run_flag = false
+mut nu_update_run_flag = false
+mut cargo_all_update_run_flag = false
 
 if (which cargo) != null {
     let output_cargo = (cargo install-update -l)
@@ -11,8 +13,8 @@ if (which cargo) != null {
         # 優先順位1: cargo-binstall（即座に更新）
         if ($line_cargo | str contains "cargo-binstall") {
             if ($line_cargo | str contains "Yes") {
-                print "Updating cargo-binstall"
-                cargo binstall --force cargo-binstall
+                print "Yes update needed for cargo-binstall"
+                $cargo_binstall_update_run_flag = true
             }
         # 優先順位2: cargo-update（フラッグ管理、後でbinstall更新）
         } else if ($line_cargo | str contains "cargo-update") {
@@ -26,10 +28,25 @@ if (which cargo) != null {
                 print "Yes update needed for erg"
                 $erg_update_run_flag = true
             }
-        # 優先順位4: 一般的なcargo apps（一括更新フラッグ）
+        # 優先順位4: nu（フラッグ管理、後で特別オプション付きインストール）
+        } else if ($line_cargo | str contains "nu") {
+            if ($line_cargo | str contains "Yes") {
+                print "Yes update needed for nu"
+                # nu の更新処理をここに追加する場合は、同様にフラッグを設定するか、直接更新コマンドを実行する
+                $nu_update_run_flag = true
+            }
+        # 優先順位5: 一般的なcargo apps（一括更新フラッグ）
         } else if ($line_cargo | str contains "Yes") {
             $cargo_all_update_run_flag = true
         }
+    }
+
+    # 優先順位1: cargo-binstall の更新実行
+    if ($cargo_binstall_update_run_flag == true) {
+        print "Updating cargo-binstall"
+        cargo binstall --force cargo-binstall
+    } else {
+        print "No updates available for cargo-binstall"
     }
 
     # 優先順位2: cargo-update の更新実行
@@ -43,12 +60,20 @@ if (which cargo) != null {
     # 優先順位3: erg の更新実行
     if ($erg_update_run_flag == true) {
         print "Updating erg"
-        cargo install erg -f --features "japanese full"
+        cargo install erg --features "japanese full"
     } else {
         print "No updates available for erg"
     }
 
-    # 優先順位4: 一般的なcargo apps の一括更新
+    # nu の更新実行
+    if ($nu_update_run_flag == true) {
+        print "Updating nu"
+        cargo install nu --features "full mcp"
+    } else {
+        print "No updates available for nu"
+    }
+
+    # 優先順位5: 一般的なcargo apps の一括更新
     if ($cargo_all_update_run_flag == true) {
         print "cargo all apps updating"
         cargo install-update -a
