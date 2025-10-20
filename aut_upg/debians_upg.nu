@@ -5,4 +5,3 @@ if (which apt-fast) != null {
 
 source not_termux.nu
 source posix_upg.nu
-source all_upg.nu
