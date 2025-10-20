@@ -13,7 +13,7 @@ if (which deno) != null {
     print "deno is not installed"
 }
 
-if (which deno) != null {
+if (which uv) != null {
     uv self update
     uv tool upgrade --all
 } else {
