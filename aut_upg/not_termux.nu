@@ -19,3 +19,5 @@ if (which uv) != null {
 } else {
     print "deno is not installed"
 }
+
+source cargo_upg.nu
