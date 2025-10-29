@@ -1,0 +1,23 @@
+#not termux
+
+if (which rustup) != null {
+    rustup self update
+    rustup update
+} else {
+    print "rustup is not installed"
+}
+
+if (which deno) != null {
+    deno upgrade
+} else {
+    print "deno is not installed"
+}
+
+if (which uv) != null {
+    uv self update
+    uv tool upgrade --all
+} else {
+    print "deno is not installed"
+}
+
+source cargo_upg.nu

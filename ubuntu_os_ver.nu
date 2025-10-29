@@ -1,1 +1,0 @@
-sudo do-release-upgrade

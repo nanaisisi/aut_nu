@@ -6,7 +6,7 @@ if (which git) {
     git fetch
     git merge
 } else {
-    print "Gitがインストールされていません。Gitをインストールしてください。"
+    print "Gitが確認できません。Gitのインストールや環境変数設定によって動作可能にしてください。"
     exit 1
 }
 
@@ -15,19 +15,23 @@ if (which git) {
 match (sys host | get name) {
     "Windows" => (
         # Windows用の処理
-        source ./aut_upg/win_upg.nu
+        source ./aut_env/win_env.nu
     ),
     "Ubuntu" => (
         # Ubuntu用の処理
-        source ./aut_upg/ubuntu_upg.nu
+        #source ./aut_env/ubuntu_env.nu
+        print "Ubuntu用のインストール処理は未実装です。"
     ),
     "Debian" => (
         # Linux用の処理
-        source ./aut_upg/debians_upg.nu
+        #source ./aut_env/debians_env.nu
+        print "Debian用のインストール処理は未実装です。"
     ),
     "Kali" => (
         # Kali Linux用の処理
-        source ./aut_upg/debians_upg.nu
+        # ただし、Debian用コードを流用
+        #source ./aut_env/debians_env.nu
+        print "Kali Linux用のインストール処理は未実装です。"
     ),
     _ => {
         if $nu.os-info.name == ("Android" | "android") {
@@ -36,7 +40,8 @@ match (sys host | get name) {
             # host名が端末名かつ、
             # nuのOS情報がAndroidなので、
             # Termuxとして処理する
-            source ./aut_upg/termux_upg.nu
+            #source ./aut_env/termux_env.nu
+            print "Termux用のインストール処理は未実装です。"
         } else {
             print ("未対応のOS:" + (sys host | get name))
         }
@@ -44,4 +49,4 @@ match (sys host | get name) {
 }
 
 print "正常性は保証しませんが、"
-print "アップデート処理が中断せずに終了しました。"
+print "インストール処理が中断せずに終了しました。"

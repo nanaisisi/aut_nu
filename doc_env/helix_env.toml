@@ -1,0 +1,5 @@
+#vscode_dark_nanai.toml place ~/.config/helix/themes or %AppData%\helix\themes on Windows
+#%Appdata%...
+
+#↓ hx :config-open
+theme = "vscode_dark_nanai"

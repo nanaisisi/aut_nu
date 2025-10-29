@@ -1,0 +1,86 @@
+#私はwslで、winのクリップボードにパスワード固定しているんですよね。履歴あり非自動共有あり。
+sudo apt update
+sudo apt dist-upgrade -y
+sudo do-release-upgrade
+
+#どうしても困った時用。あんまり使わないほうがいい。
+sudo apt install aptitude
+
+#ubuntu
+sudo wget https://www.ubuntulinux.jp/ubuntu-jp-ppa-keyring.gpg -P /etc/apt/trusted.gpg.d/
+sudo wget https://www.ubuntulinux.jp/ubuntu-ja-archive-keyring.gpg -P /etc/apt/trusted.gpg.d/
+sudo wget https://www.ubuntulinux.jp/sources.list.d/mantic.list -O /etc/apt/sources.list.d/ubuntu-ja.list
+sudo apt update
+
+sudo add-apt-repository ppa:o2sh/onefetch
+sudo apt-get update
+sudo apt-get install onefetch
+
+sudo apt install curl lsb-release wget
+curl -sL https://raw.githubusercontent.com/wimpysworld/deb-get/main/deb-get | sudo -E bash -s install deb-get
+
+
+
+#コンパイルは時間がかかるのでGitのReleaseなどからバイナリが高速で手に入る用に。
+cargo install cargo-binstall
+#その後のアプリ管理
+cargo binstall cargo-update
+#list表示
+#cargo install-update -l
+#実行、自動アップデートシステムはこの辺の管理順序をフローにしてる。
+#cargo install-update -a
+
+
+#nushell
+
+curl -fsSL https://apt.fury.io/nushell/gpg.key | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/fury-nushell.gpg
+echo "deb https://apt.fury.io/nushell/ /" | sudo tee /etc/apt/sources.list.d/fury.list
+sudo apt update
+sudo apt install nushell
+
+
+#helix
+
+#ubuntu
+sudo add-apt-repository ppa:maveonair/helix-editor
+sudo apt update
+sudo apt install helix
+
+#not_ubuntu_issued_systemd
+
+snap install --classic helix
+
+flatpak install flathub com.helix_editor.Helix
+flatpak run com.helix_editor.Helix
+
+#Gordian Knot
+cargo binstall helix
+
+
+#hx /etc/shells
+#add nu path
+#shell setting nu
+chsh
+
+
+#$nu.env-path
+
+mkdir ~/.cache/starship
+starship init nu | save -f ~/.cache/starship/init.nu
+
+#$nu.config-path
+
+use ~/.cache/starship/init.nu
+
+#~/.bashrc
+
+eval "$(starship init bash)"
+
+#etc
+echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ stable main" | sudo tee /etc/apt/sources.list.d/azlux.list
+sudo wget -O /usr/share/keyrings/azlux-archive-keyring.gpg  https://azlux.fr/repo.gpg
+
+
+#色々入れとく
+#tauriとか参考にはなる
+gh extension install github/gh-copilot

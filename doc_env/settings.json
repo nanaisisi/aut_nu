@@ -1,0 +1,57 @@
+{
+  //内部パスが名前でアレなので抜粋
+"terminal.integrated.defaultProfile.windows": "nushell",
+"terminal.integrated.profiles.linux": {
+  "bash": {
+    "path": "bash",
+    "icon": "terminal-bash"
+  },
+  "zsh": {
+    "path": "zsh"
+  },
+  "fish": {
+    "path": "fish"
+  },
+  "tmux": {
+    "path": "tmux",
+    "icon": "terminal-tmux"
+  },
+  "pwsh": {
+    "path": "pwsh",
+    "icon": "terminal-powershell"
+  },
+  "nushell": {
+    "path": "nu"
+  }
+},
+"terminal.integrated.defaultProfile.linux": "nushell",
+"editor.fontFamily": "'HackGen Console NF', monospace",
+"debug.console.fontFamily": "'HackGen Console NF', monospace",
+"terminal.integrated.localEchoExcludePrograms": [
+  "vim",
+  "vi",
+  "nano",
+  "tmux",
+  "hx"
+],
+"terminal.integrated.profiles.windows": {
+  "nushell": {
+    "path": "nu"
+  },
+  "PowerShell": {
+    "source": "PowerShell",
+    "icon": "terminal-powershell"
+  },
+  "Command Prompt": {
+    "path": [
+      "${env:windir}\\Sysnative\\cmd.exe",
+      "${env:windir}\\System32\\cmd.exe"
+    ],
+    "args": [],
+    "icon": "terminal-cmd"
+  },
+  "Git Bash": {
+    "source": "Git Bash"
+  }
+}
+}
