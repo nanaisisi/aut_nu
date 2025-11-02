@@ -1,19 +1,19 @@
 #not termux
 
-if (which rustup) != null {
+if not ((which rustup) | is-empty) {
     rustup self update
     rustup update
 } else {
     print "rustup is not installed"
 }
 
-if (which deno) != null {
+if not ((which deno) | is-empty) {
     deno upgrade
 } else {
     print "deno is not installed"
 }
 
-if (which uv) != null {
+if not ((which uv) | is-empty) {
     uv self update
     uv tool upgrade --all
 } else {

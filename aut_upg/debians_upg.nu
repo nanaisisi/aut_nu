@@ -1,4 +1,4 @@
-if (which apt-fast) != null {
+if not ((which apt-fast) | is-empty) {
     sudo apt-fast update
     sudo apt-fast dist-upgrade -y
 }

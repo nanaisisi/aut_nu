@@ -2,9 +2,9 @@
 source debians_upg.nu
 
 # Ubuntu特有なOSアップグレード処理
-if (which do-release-upgrade) != null {
+if not ((which do-release-upgrade) | is-empty) {
     print "OSアップデートは実行しますか？(y/n)"
-    if (input) == "y" {
+    if input == "y" {
         sudo do-release-upgrade
     }
 }
