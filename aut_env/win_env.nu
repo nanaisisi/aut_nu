@@ -10,13 +10,17 @@
 #scoop bucket add extras
 
 #nu(scoop)
-let uv_output = (uv)
-# 出力を行ごとに分割
-let uv_lines = $uv_output | lines # uv実行によるの行を解析
-for uv_line in $uv_lines {
-    if ($uv_line | str contains "Error") {
-    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+if not ((which uv) | is-empty) {
+    let uv_output = (uv)
+    # 出力を行ごとに分割
+    let uv_lines = $uv_output | lines # uv実行によるの行を解析
+    for uv_line in $uv_lines {
+        if ($uv_line | str contains "Error") {
+        powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+        }
     }
+} else {
+    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 }
 scoop bucket add extras
 winget upgrade

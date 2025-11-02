@@ -21,7 +21,7 @@ match (sys host | get name) {
         source ./aut_upg/debians_upg.nu
     ),
     _ => {
-        if $nu.os-info.name == ("Android" | "android") {
+        if $nu.os-info.name in ["Android", "android"] {
             # Android用の処理
             # Termuxは、
             # host名が端末名かつ、

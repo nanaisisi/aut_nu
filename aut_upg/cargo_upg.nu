@@ -4,7 +4,7 @@ mut erg_update_run_flag = false
 mut nu_update_run_flag = false
 mut cargo_all_update_run_flag = false
 
-if (which cargo) != null {
+if not ((which cargo) | is-empty) {
     let output_cargo = (cargo install-update -l)
     # 出力を行ごとに分割
     let lines_cargo = $output_cargo | lines # cargo-update の行を解析

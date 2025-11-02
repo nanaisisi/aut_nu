@@ -1,5 +1,5 @@
 #インストーラーは未実装なため、本リポジトリはクローン済みであると仮定して実行する
-if (which git) {
+if not ((which git) | is-empty) {
     print "Gitがインストールされていることを確認しました。"
     print "本Gitリポジトリを更新します。"
     # Gitのリポジトリを更新
@@ -34,7 +34,7 @@ match (sys host | get name) {
         print "Kali Linux用のインストール処理は未実装です。"
     ),
     _ => {
-        if $nu.os-info.name == ("Android" | "android") {
+        if $nu.os-info.name in ["Android", "android"] {
             # Android用の処理
             # Termuxは、
             # host名が端末名かつ、
